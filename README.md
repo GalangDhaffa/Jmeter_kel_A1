@@ -89,7 +89,7 @@ jmeter
 
 Jika berhasil, antarmuka grafis (GUI) JMeter akan muncul.
 
-<img src="
+<img src="image/img1.png">
 ---
 
 ## Menjalankan JMeter dalam Mode Non-GUI
