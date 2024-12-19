@@ -1,4 +1,4 @@
-# Panduan Instalasi Apache JMeter di Debian 12
+# Laporan Instalasi Apache JMeter di Debian 12
 
 Panduan ini menjelaskan langkah-langkah untuk menginstal Apache JMeter pada sistem operasi Debian 12. Apache JMeter adalah alat pengujian kinerja berbasis Java yang banyak digunakan untuk menguji aplikasi web dan berbagai layanan lainnya.
 
@@ -110,9 +110,8 @@ jmeter -n -t test_plan.jmx -l result.jtl
 
 ## Penyelesaian Masalah
 
-1. **Masalah Java Tidak Ditemukan:**
-   - Pastikan Java sudah terinstal dan jalankan `java -version` untuk memverifikasinya.
-   - Periksa variabel lingkungan Java dengan perintah `echo $JAVA_HOME`.
+1. **Masalah Java tidak komtibel**
+   - Pastikan Java yang terinstall menggunakan versi yg terbaru.
 
 2. **JMeter Tidak Dapat Dijalankan:**
    - Pastikan direktori instalasi sudah benar dan PATH sudah ditambahkan dengan benar.
