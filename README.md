@@ -1,145 +1,128 @@
-# Install Apache JMeter on Debian 12
+# Panduan Instalasi Apache JMeter di Debian 12
 
-This guide provides step-by-step instructions to install Apache JMeter on Debian 12. Follow these steps to set up JMeter and start using it for performance and load testing.
-
----
-
-## Prerequisites
-
-Before you begin, ensure the following requirements are met:
-
-- **Debian 12** installed on your system (e.g., VirtualBox or physical machine).
-- **Java Runtime Environment (JRE)** or **Java Development Kit (JDK)** installed (minimum version: Java 8).
-- Basic knowledge of terminal commands.
+Panduan ini menjelaskan langkah-langkah untuk menginstal Apache JMeter pada sistem operasi Debian 12. Apache JMeter adalah alat pengujian kinerja berbasis Java yang banyak digunakan untuk menguji aplikasi web dan berbagai layanan lainnya.
 
 ---
 
-## Steps to Install JMeter
+## Prasyarat
 
-### 1. Update System Packages
+Sebelum memulai instalasi, pastikan Anda memiliki:
 
-Keep your system up-to-date by running:
+- Sistem operasi **Debian 12** yang sudah berjalan.
+- Hak akses root atau pengguna dengan akses sudo.
+- **Java** (minimal versi 8) sudah terinstal pada sistem.
+
+---
+
+## Langkah-langkah Instalasi
+
+### 1. Update Sistem
+
+Perbarui repositori paket dan pastikan semua paket terbaru telah terinstal:
 
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-### 2. Install Java
+### 2. Instal Java
 
-JMeter requires Java to run. Install OpenJDK by executing:
+Apache JMeter memerlukan Java untuk berjalan. Instal OpenJDK dengan perintah berikut:
 
 ```bash
-sudo apt install -y openjdk-11-jdk
+sudo apt install openjdk-21-jdk -y
 ```
 
-Verify the installation:
+Verifikasi instalasi Java:
 
 ```bash
 java -version
 ```
 
-The output should display the installed Java version.
+Output yang diharapkan:
 
-### 3. Download Apache JMeter
-
-Visit the [official JMeter download page](https://jmeter.apache.org/download_jmeter.cgi) and copy the link to the latest binary release.
-
-Download JMeter using `wget`:
-
-```bash
-wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-x.x.x.tgz
+```plaintext
+openjdk version "21.0.5" 2024-10-15
+OpenJDK Runtime Environment (build 21.0.5+11-Debian-1)
+OpenJDK 64-Bit Server VM (build 21.0.5+11-Debian-1, mixed mode, sharing)
 ```
 
-Replace `x.x.x` with the latest version number.
+### 3. Unduh Apache JMeter
 
-### 4. Extract JMeter Files
-
-Extract the downloaded archive:
+Unduh versi terbaru Apache JMeter dari situs resmi:
 
 ```bash
-tar -xvzf apache-jmeter-x.x.x.tgz
+wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.2.tgz
 ```
 
-Move the extracted folder to `/opt`:
+> **Catatan:** Periksa [situs resmi Apache JMeter](https://jmeter.apache.org/) untuk versi terbaru jika perlu.
+
+### 4. Ekstrak File JMeter
+
+Ekstrak file tar.gz yang telah diunduh:
 
 ```bash
-sudo mv apache-jmeter-x.x.x /opt/jmeter
+tar -xvzf apache-jmeter-5.6.3.tgz
 ```
 
-### 5. Set Environment Variables
+Pindahkan folder hasil ekstraksi ke direktori yang diinginkan, misalnya `/opt`:
 
-Add JMeter to your system's PATH for easier access. Edit the `.bashrc` file:
+```bash
+sudo mv apache-jmeter-5.6.2 /opt/jmeter
+```
+
+### 5. Konfigurasi Variabel Lingkungan
+
+Tambahkan JMeter ke variabel lingkungan PATH agar mudah dijalankan dari terminal:
 
 ```bash
 echo 'export PATH=$PATH:/opt/jmeter/bin' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-### 6. Verify JMeter Installation
+### 6. Verifikasi Instalasi
 
-Run JMeter to ensure it is correctly installed:
-
-```bash
-jmeter -v
-```
-
-You should see the JMeter version and other details.
-
----
-
-## Launch JMeter
-
-To start the JMeter GUI, run:
+Jalankan JMeter untuk memastikan instalasi berhasil:
 
 ```bash
 jmeter
 ```
 
-If you are using a headless server, you can use JMeter in non-GUI mode:
-
-```bash
-jmeter -n -t /path/to/testplan.jmx -l /path/to/results.jtl
-```
-
-Replace `/path/to/testplan.jmx` and `/path/to/results.jtl` with your test plan and desired result file path.
+Jika berhasil, antarmuka grafis (GUI) JMeter akan muncul.
 
 ---
 
-## Additional Configuration (Optional)
+## Menjalankan JMeter dalam Mode Non-GUI
 
-### Increase JVM Heap Size
-
-To handle large test plans, increase the JVM heap size. Edit the `jmeter` script:
+Untuk pengujian dalam mode Non-GUI (lebih hemat sumber daya):
 
 ```bash
-sudo nano /opt/jmeter/bin/jmeter
+jmeter -n -t <file_test_plan>.jmx -l <file_output>.jtl
 ```
 
-Modify the following lines:
+Contoh:
 
 ```bash
-HEAP="-Xms1g -Xmx2g"
+jmeter -n -t test_plan.jmx -l result.jtl
 ```
-
-### Install Plugins Manager
-
-Extend JMeter functionality with plugins:
-
-1. Download the [Plugins Manager JAR](https://jmeter-plugins.org/get/).
-2. Place it in the `lib/ext` directory:
-
-   ```bash
-   cp /path/to/JMeterPlugins-Manager.jar /opt/jmeter/lib/ext/
-   ```
-3. Restart JMeter.
 
 ---
 
-## References
+## Penyelesaian Masalah
 
-- [Apache JMeter Official Documentation](https://jmeter.apache.org/)
-- [Debian Package Management Guide](https://wiki.debian.org/Apt)
+1. **Masalah Java Tidak Ditemukan:**
+   - Pastikan Java sudah terinstal dan jalankan `java -version` untuk memverifikasinya.
+   - Periksa variabel lingkungan Java dengan perintah `echo $JAVA_HOME`.
+
+2. **JMeter Tidak Dapat Dijalankan:**
+   - Pastikan direktori instalasi sudah benar dan PATH sudah ditambahkan dengan benar.
 
 ---
 
-You are now ready to use Apache JMeter for your performance testing needs. Happy testing!
+## Referensi
+
+- [Dokumentasi Resmi Apache JMeter](https://jmeter.apache.org/)
+- [Repositori Debian](https://www.debian.org/)
+
+---
+
+Semoga panduan ini membantu Anda dalam menginstal dan menjalankan Apache JMeter di Debian 12. Jangan ragu untuk memberikan saran atau melaporkan masalah melalui fitur Issue di repositori ini.
