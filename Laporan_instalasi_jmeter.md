@@ -92,20 +92,6 @@ Jika berhasil, antarmuka grafis (GUI) JMeter akan muncul.
 <img src="image/img1.png">
 ---
 
-## Menjalankan JMeter dalam Mode Non-GUI
-
-Untuk pengujian dalam mode Non-GUI (lebih hemat sumber daya):
-
-```bash
-jmeter -n -t <file_test_plan>.jmx -l <file_output>.jtl
-```
-
-Contoh:
-
-```bash
-jmeter -n -t test_plan.jmx -l result.jtl
-```
-
 ---
 
 ## Penyelesaian Masalah
